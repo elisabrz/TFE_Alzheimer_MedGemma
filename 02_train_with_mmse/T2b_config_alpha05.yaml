@@ -1,0 +1,23 @@
+# Config T2-b — Ablation pondération MSE (α_reg = 0.5)
+# Identique à T2 sauf loss_weight. Test de la sensibilité du multitâche au poids
+# de la régression MMSE. Hypothèse : un poids plus faible peut améliorer la
+# classification (réduit la compétition de gradient cls vs reg).
+#
+# Comparaison visée :
+#   T2     : α_reg = 1.0 (baseline)  → AUC test = 0.9458, MMSE MAE = 2.49
+#   T2-b   : α_reg = 0.5             → ?
+#
+# Toute autre variable conservée : même seed, même fold, même architecture.
+
+task_name: 02_with_mmse_alpha05
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: true
+  loss_weight: 0.5         # ← seul changement vs T2 baseline
+
+logging:
+  run_name: t2b_alpha05_fold0_seed42
+
+training:
+  output_dir: results/02b_with_mmse_alpha05

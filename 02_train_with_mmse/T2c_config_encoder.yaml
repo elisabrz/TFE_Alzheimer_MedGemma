@@ -1,0 +1,33 @@
+# Config T2-c — Ablation extraction MMSE niveau encodeur
+# La tête MMSE lit le CLS du vision_tower (SigLIP) au lieu du hidden state LM.
+# Test direct de l'hypothèse : "le MMSE est-il dérivable de l'IRM seule ?"
+#
+# Architecture :
+#   - mmse_head : LayerNorm(1152) + Linear(1152→1)  (vs 2560 pour T2 baseline)
+#   - Pas de logit_pos : pooling CLS sur sortie SigLIP
+#   - Le gradient MSE remonte dans vision_tower + projecteur,
+#     mais N'ATTEINT PAS le décodeur LM via la branche MMSE
+#   - La classification CN/AD utilise toujours le LM (inchangé)
+#
+# Comparaison visée :
+#   T2     (décodeur, α=1.0) : MAE = 2.49, CC = 0.67, AUC cls = 0.946
+#   T2-c   (encodeur, α=1.0) : MAE = ?,    CC = ?,    AUC cls = ?
+#
+# Hypothèse forte : le MAE devrait être moins bon en encodeur car les features
+# tabulaires (âge, éducation, scores cognitifs) ne sont vues que par le LM.
+# Si MAE_encodeur ≈ MAE_decodeur, ça suggère que le MMSE est essentiellement
+# anatomique (atrophie hippocampe → MMSE bas). Si MAE_encodeur >> MAE_decodeur,
+# ça valide l'apport de la fusion contextuelle pour la régression.
+
+task_name: 02c_with_mmse_encoder
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: true
+  loss_weight: 1.0          # α_reg conservé pour comparabilité directe avec T2
+
+logging:
+  run_name: t2c_encoder_fold0_seed42
+
+training:
+  output_dir: results/02c_with_mmse_encoder

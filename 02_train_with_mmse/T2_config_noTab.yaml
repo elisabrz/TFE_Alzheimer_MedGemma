@@ -1,0 +1,33 @@
+# Ablation text-only : toutes les features tabulaires omises.
+# Teste le modèle sur IRM seule (même checkpoint, prompt purgé).
+# use_visual=true, tabular_features=[]
+# Modèle source : T2
+# Checkpoint    : results/02_with_mmse/best_model
+# Usage :
+#   python evaluate.py \
+#       --checkpoint results/02_with_mmse/best_model \
+#       --config <path>/T2_config_noTab.yaml \
+#       --split test  --threshold-source val \
+#       --output results/ablation/02_with_mmse_noTab
+#   (remplacer --split test par --split val pour la validation)
+
+task_name: 02_with_mmse_noTab
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: true
+  loss_weight: 1.0
+
+prompt:
+  mode: full
+
+data:
+  use_tabular: false
+  tabular_features: []  # liste vide → 'No clinical data provided.'
+  use_visual: true
+
+logging:
+  run_name: 02_with_mmse_noTab_fold0
+
+training:
+  output_dir: results/ablation/02_with_mmse_noTab

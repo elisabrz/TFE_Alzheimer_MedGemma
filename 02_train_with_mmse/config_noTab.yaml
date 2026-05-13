@@ -1,0 +1,35 @@
+# Config Tâche 2 — Ablation image-only (sans features tabulaires)
+# Évalue le checkpoint T2 (multitâche cls + MMSE) avec prompt image-only.
+# Objectif : vérifier si la tête MMSE reste performante sans les features
+# cognitives (CATANIMSC, TMT-A/B, etc.) qui corrèlent fortement avec MMSE.
+# On s'attend à une dégradation forte du MAE MMSE puisque les features
+# cognitives textuelles sont le signal principal de régression.
+#
+# Usage :
+#   python evaluate.py \
+#       --task 02_with_mmse \
+#       --checkpoint results/02_with_mmse/best_model \
+#       --config 02_with_mmse/config_noTab.yaml \
+#       --split test \
+#       --output results/ablation/02_noTab \
+#       --threshold-source val
+
+task_name: 02_with_mmse_noTab
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: true
+  loss_weight: 1.0          # α_reg — conservé identique à T2 standard
+
+data:
+  tabular_features: []
+  use_tabular: false        # ← seul changement vs T2 standard
+
+prompt:
+  mode: full                # template full conservé, section clinical_info sera vide
+
+logging:
+  run_name: t2_noTab_ablation_fold0
+
+training:
+  output_dir: results/ablation/02_noTab

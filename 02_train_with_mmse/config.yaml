@@ -1,0 +1,22 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# Config Tâche 2 — Multitâche classif + MMSE
+# ═══════════════════════════════════════════════════════════════════════════
+# Note : avec le pipeline d'imputation patché (cf. config_base.yaml), la loss
+# MMSE n'utilise QUE les samples avec vraie mesure (has_real_measures==1).
+# - reg_weight=1.0 → vraies mesures ADNI (~14% du train)
+# - reg_weight=0.0 → tout le reste (NACC/OASIS imputés ou val/test sans MMSE)
+# La loss côté trainers.py utilise sum/sum (pas mean) pour ne pas diluer le
+# gradient avec les zéros.
+# ═══════════════════════════════════════════════════════════════════════════
+task_name: 02_with_mmse
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: true
+  loss_weight: 1.0         # α_reg
+
+logging:
+  run_name: t2_with_mmse_fold0_seed42
+
+training:
+  output_dir: results/02_with_mmse
