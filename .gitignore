@@ -38,7 +38,9 @@ data/**/*.tsv
 
 # Checkpoints complets du modèle
 results/*/best_model/
+results/*/best_model_*/
 results/*/checkpoint-*/
+results/*/checkpoint_*/
 
 # Poids PyTorch
 *.pt
