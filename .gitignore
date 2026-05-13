@@ -1,0 +1,210 @@
+# ================================================================
+# .gitignore — TFE Alzheimer / MedGemma
+# ================================================================
+
+
+# ================================================================
+# 1. DONNÉES MÉDICALES — PROTECTION TOTALE
+#    Absolument aucun CSV de données patient, aucune image IRM,
+#    aucune donnée brute ne doit apparaître sur le dépôt.
+# ================================================================
+
+# Tous les splits patients
+data/
+
+# Toute image médicale (IRM)
+*.nii
+*.nii.gz
+*.dcm
+*.mgh
+*.mgz
+
+# CSV de données patients (protection par extension en secours)
+# → les seuls CSV autorisés sont les métriques d'évaluation
+# (gérés par exception plus bas)
+data/**/*.csv
+data/**/*.tsv
+
+# Empêche d'ajouter le dossier data même vide ou avec sous-dossiers
+!data/.gitkeep
+
+
+# ================================================================
+# 2. POIDS DU MODÈLE ET CHECKPOINTS
+#    Les poids fine-tunés NF4 (~2-4 GB) et les adaptateurs LoRA
+#    sont beaucoup trop lourds pour GitHub (limite 100 MB/fichier).
+#    Utiliser HuggingFace Hub pour les publier si besoin.
+# ================================================================
+
+# Checkpoints complets du modèle
+results/*/best_model/
+results/*/checkpoint-*/
+
+# Poids PyTorch
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Exceptions : fichiers de méta-données ultra-légers dans best_model
+# (config JSON d'architecture, tokenizer config) — décommentez si besoin
+# !results/*/best_model/config.json
+# !results/*/best_model/tokenizer_config.json
+# !results/*/best_model/mmse_head_meta.json
+
+
+# ================================================================
+# 3. RÉSULTATS D'ÉVALUATION — RÈGLES FINES
+#    - Autorisés : métriques agrégées (JSON, CSV sans données patient)
+#    - Interdits : prédictions par patient (prob_AD, pred par sujet)
+# ================================================================
+
+# Prédictions par patient — contiennent subject_id + probabilités
+# → équivalent à données de santé individualisées
+results/*/predictions_*.csv
+results/*/ablation/*/predictions_*.csv
+
+# Prédictions dans les dossiers d'ablation
+results/ablation/**/predictions_*.csv
+
+
+# ================================================================
+# 4. FICHIERS D'ENVIRONNEMENT ET SECRETS
+#    Les clés HuggingFace (MedGemma est gated) et WandB ne doivent
+#    JAMAIS être exposées.
+# ================================================================
+
+.env
+.env.*
+!.env.example        # Le template sans valeurs réelles est autorisé
+
+# Clés et tokens (sécurité supplémentaire)
+*.pem
+*.key
+secrets/
+credentials/
+
+
+# ================================================================
+# 5. PYTHON — STANDARD
+# ================================================================
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Environnements virtuels
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# Distribution / packaging
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+wheels/
+
+# pytest / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+
+# mypy / type checkers
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+
+
+# ================================================================
+# 6. JUPYTER ET NOTEBOOKS
+# ================================================================
+
+.ipynb_checkpoints/
+
+# Sorties de notebooks (peuvent contenir des données en output)
+# Conserver les notebooks mais pas leurs sorties
+# (géré via nbstripout ou manuellement)
+
+
+# ================================================================
+# 7. FICHIERS SYSTÈME ET ÉDITEURS
+# ================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+
+# ================================================================
+# 8. LOGS ET CACHES
+# ================================================================
+
+# Caches HuggingFace (modèles téléchargés, tokenizers)
+# → Trop lourds et reproductibles depuis HF Hub
+.cache/
+*.cache
+
+# Logs WandB
+wandb/
+
+# Logs d'entraînement bruts (trop lourds, garder uniquement métriques)
+logs/*.log
+
+# TensorBoard
+runs/
+events.out.tfevents.*
+
+
+# ================================================================
+# 9. FICHIERS TEMPORAIRES ET INTERMÉDIAIRES
+# ================================================================
+
+# Fichiers temporaires Python
+tmp/
+temp/
+*.tmp
+
+# Sorties intermédiaires d'évaluation (conservées en local)
+# Décommentez si vous voulez aussi exclure les matrices de confusion
+# results/**/*.png
+
+# PIDs de process (scripts nohup)
+*.pid

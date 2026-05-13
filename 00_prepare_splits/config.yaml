@@ -1,0 +1,47 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# config.yaml — Tâche 0 : préparation des splits 5-fold
+# ═══════════════════════════════════════════════════════════════════════════
+# Le script prepare_splits.py est autonome : il peut
+#   (a) partir du CSV Tanguy brut (all.csv) et faire TOUT le pipeline, ou
+#   (b) partir d'un CSV déjà nettoyé et passer directement au split + imputation.
+#
+# Le script détecte automatiquement le mode en cherchant les colonnes
+# `mmse_score` et `has_real_measures`. Force le mode (a) avec --skip-cleaning=false
+# et force (b) avec --skip-cleaning.
+#
+# Imputation (cf. config_base.yaml) :
+#   - méthode : médiane GLOBALE train-only
+#   - appliquée aux 3 splits (train/val/test)
+#   - colonnes <col>_imputed pour traçabilité dans le prompt LLM
+# ═══════════════════════════════════════════════════════════════════════════
+
+task_name: 00_prepare_splits
+
+# ---- Entrée ----
+# Pipeline complet recommandé : on repart du CSV brut Tanguy pour garantir
+# la cohérence de la nouvelle stratégie d'imputation.
+input_csv: /home/elisa/data/data/combined_trajectory/all.csv
+
+# Variante (CSV déjà nettoyé, plus rapide mais nécessite que les colonnes
+# mmse_score + has_real_measures soient déjà présentes) :
+# input_csv: /home/elisa/TFE_Alzheimer/tfe_dataset_complet_v2.csv
+
+# ---- Sortie ----
+output_dir: /home/elisa/TFE_final/data/splits   # suffixé par task_name dans chaque config
+
+# ---- Split parameters ----
+n_folds: 5                   # 5-fold stratifié niveau sujet
+train_val_split: 0.9         # 90% train / 10% val intra-fold (sur les 80% train+val)
+seed: 42                     # seed utilisée pour l'entraînement du TFE
+seeds: [42, 123, 456]        # loggés dans metadata pour reproductibilité future
+
+# ---- Chemins pour le mode "nettoyage complet" (option A) ----
+# Nécessaires uniquement si input_csv pointe vers all.csv (CSV non nettoyé).
+# Ignorés sinon.
+mri_root:      /home/elisa/mri-data
+adni_mmse_csv: /home/elisa/data/raw_data/adni/tabular_raw/3D_MPRAGE_Imaging_Cohort_My_Table_10Oct2025.csv
+adni_fs_csv:   /home/elisa/data/raw_data/adni/tabular_raw/UCSFFSX7.csv
+
+# ---- Comportement ----
+first_visit_only: true       # toujours true (filtre idempotent si déjà 1 ligne/sujet)
+stratify_on: label           # CN/AD — la distribution des cohortes varie naturellement

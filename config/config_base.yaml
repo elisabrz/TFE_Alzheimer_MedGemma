@@ -1,0 +1,151 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# config_base.yaml — Hyperparamètres communs à toutes les tâches
+# ═══════════════════════════════════════════════════════════════════════════
+# Basé sur config_step_2_v3.yaml (pipeline validé avec best_model_step2).
+# Les configs individuelles 0X_*/config.yaml héritent via
+# utils.load_config(base_path, task_path) — override récursif.
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ---- Modèle ----
+model:
+  name: google/medgemma-1.5-4b-it
+  hidden_size: 2560
+  trust_remote_code: true
+
+# ---- QLoRA / Quantization ----
+quantization:
+  load_in_4bit: true
+  bnb_4bit_quant_type: nf4
+  bnb_4bit_use_double_quant: true
+  bnb_4bit_compute_dtype: bfloat16
+
+# ---- LoRA ----
+lora:
+  r: 16
+  lora_alpha: 32          # scaling = alpha/r = 2.0
+  lora_dropout: 0.05
+  bias: none
+  target_modules: all-linear
+  task_type: CAUSAL_LM
+  # 38.5M params entraînables (0.89% du modèle)
+
+# ---- Verbalizer (classification CN/AD) ----
+verbalizer:
+  token_cn: "CN"           # id 9353 dans le tokenizer MedGemma
+  token_ad: "AD"           # id 2466 dans le tokenizer MedGemma
+  # logit_pos = ans_pos - 1 (convention autoregressive)
+
+# ---- Tête MMSE (ignorée dans les tâches sans MMSE) ----
+mmse_head:
+  enabled: false
+  hidden_size: 2560
+  # Architecture fixe (contrainte pipeline) :
+  #   LayerNorm(2560, dtype=fp32) + Linear(2560→1, dtype=fp32)
+  # Sortie × sigmoid × 30 côté training
+
+# ---- Loss ----
+loss:
+  focal_alpha: 0.783        # poids classe AD (déséquilibre 78.3% CN / 21.7% AD)
+  focal_gamma: 2.0
+  alpha_reg: 1.0           # poids MSE MMSE dans la loss combinée
+
+# ---- Données ----
+data:
+  # Splits générés par 00_prepare_splits/ (médiane GLOBALE train-only sur 3 splits)
+  splits_dir: ./data/splits
+  fold: 0                  # seul fold entraîné pour le TFE
+  seed: 42
+
+  # 16 features tabulaires passées en TEXTE dans le prompt
+  # (pas en z-score : le LLM lit "Age: 72 years", pas "-0.34")
+  # Les valeurs imputées sont marquées "(estimated)" via colonnes <feature>_imputed
+  use_tabular: true
+  tabular_features:
+    - AGE
+    - PTGENDER
+    - PTEDUCAT
+    - PTMARRY
+    - CATANIMSC
+    - TRAASCOR
+    - TRABSCOR
+    - DSPANFOR
+    - DSPANBAC
+    - BNTTOTAL
+    - MH14ALCH
+    - MH16SMOK
+    - MH4CARD
+    - MH2NEURL
+    - VSWEIGHT
+    - BMI
+  # MMSE exclu du prompt (cible de régression → fuite sinon)
+  # HIPPOCAMPUS_VOL présent dans CSV mais non utilisé (décision promoteur)
+
+  classes:
+    CN: 0
+    AD: 1
+
+  # Extraction multi-vue IRM (tanguy_dataset.MultiViewSliceExtractor)
+  # Volumes NIfTI .nii.gz → 4 coupes 2D PNG 448×448
+  slice_extraction:
+    n_coronal: 2           # région hippocampe
+    n_axial: 2             # région ventricules
+    coronal_region: [0.45, 0.55]
+    axial_region: [0.35, 0.45]
+    output_size: 448
+
+# ---- Entraînement ----
+training:
+  output_dir: ./results    # suffixé par task_name dans chaque config
+  num_train_epochs: 5      # early stopping arrêtera avant si convergence
+  per_device_train_batch_size: 1    # limite physique RTX 4080 16GB
+  per_device_eval_batch_size: 1
+  gradient_accumulation_steps: 8    # batch effectif = 8
+  learning_rate: 2.0e-5    # conservateur pour fine-tuning VLM médical
+  weight_decay: 0.01
+  warmup_steps: 100
+  lr_scheduler_type: cosine
+  bf16: true               # stable sur RTX 4080 (Ampere)
+  tf32: true
+  gradient_checkpointing: true
+  optim: paged_adamw_8bit
+  logging_steps: 20
+  save_steps: 200
+  save_strategy: steps
+  save_total_limit: 3                # 3 checkpoints récents conservés
+                                     # (forensics post-mortem si crash)
+  # NE PAS activer eval_strategy="epoch" : le pipeline HF est cassé avec
+  # labels=None pour ImageTextToText VLMs → AUC=0.0 bidon.
+  # On utilise EvalCallback custom (utils.py).
+  eval_strategy: "no"
+  dataloader_num_workers: 2
+  report_to: wandb
+  seed: 42
+
+# ---- Early stopping (EvalCallback custom) ----
+early_stopping:
+  metric: f1              # AUC val
+  mode: max
+  patience: 2
+  min_delta: 0.005         # 0.001 trop strict : AUC val (n=486) bruite à ±0.005
+                           # → on stopperait sur du bruit de mesure
+
+# ---- Imputation (train-only, médiane GLOBALE) ----
+# Appliquée dans 00_prepare_splits/prepare_splits.py.
+# Méthodologie : médiane globale calculée sur train, appliquée aux 3 splits
+# (train/val/test) — cohérent avec Tanguy CBMS section III.D
+# ("Missing values were median-imputed").
+# Les colonnes <feature>_imputed (1 = imputé, 0 = réel) sont propagées dans
+# le prompt LLM via la mention "(estimated)" — apport méthodologique TFE.
+imputation:
+  method: median_global_train_only   # médiane train globale sur les 3 splits
+  track_imputed: true                # colonnes <col>_imputed dans CSVs
+  signal_in_prompt: false            # mention "(estimated)" dans le prompt LLM
+
+# ---- Prompt ----
+prompt:
+  mode: full    # "full" | "ablation" | "minimal" | "image_centric" | "image_focused"
+
+# ---- Logging ----
+logging:
+  wandb_project: tfe-alzheimer-medgemma-clean
+  # run_name défini par chaque tâche

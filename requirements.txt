@@ -1,0 +1,71 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# TFE Elisa — Requirements (versions figées depuis l'environnement validé)
+# Hardware : RTX 4080 16GB, CUDA 11.8
+# ═══════════════════════════════════════════════════════════════════════════
+# Installation :
+#   pip install -r requirements.txt \
+#               --extra-index-url https://download.pytorch.org/whl/cu118
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ---- Core ML (CUDA 11.8) ----
+torch==2.7.1+cu118
+torchvision==0.22.1+cu118
+torchaudio==2.7.1+cu118
+triton==3.3.1
+
+# ---- HuggingFace stack ----
+transformers==5.4.0
+accelerate==1.13.0
+peft==0.18.1
+bitsandbytes==0.49.2
+trl==0.29.1
+tokenizers==0.22.2
+huggingface_hub==1.8.0
+hf-xet==1.4.2
+safetensors==0.7.0
+sentencepiece==0.2.1
+datasets==4.8.4
+
+# ---- Data / Scientific stack ----
+numpy==2.4.4
+pandas==3.0.1
+scipy==1.17.1
+scikit-learn==1.8.0
+nibabel==5.4.2
+pillow==12.1.1
+opencv-python==4.13.0.92
+
+# ---- Config / Utils ----
+PyYAML==6.0.3
+python-dateutil==2.9.0.post0
+tqdm==4.67.3
+typing_extensions==4.15.0
+
+# ---- Logging / Experiment tracking ----
+wandb==0.25.1
+
+# ---- Plotting ----
+matplotlib==3.10.8
+seaborn==0.13.2
+
+tabulate==0.10.0
+
+# ---- Note sur python-dotenv ----
+# Non listé dans le pip freeze actuel — à installer si tu veux utiliser .env :
+#   pip install python-dotenv
+
+# ---- Note sur les libs explainability ----
+# À installer au moment de la phase explainability (Tâche post-T6) :
+#   pip install grad-cam captum
+
+# ---- Dépendances transitives importantes (référence) ----
+# Ces lignes documentent les versions installées par les paquets ci-dessus.
+# Elles seront automatiquement réinstallées en cohérence avec les paquets root.
+# protobuf==6.33.6
+# regex==2026.3.32
+# joblib==1.5.3
+# threadpoolctl==3.6.0
+# filelock==3.25.2
+# fsspec==2026.2.0
+# requests==2.33.0
+# urllib3==2.6.3
