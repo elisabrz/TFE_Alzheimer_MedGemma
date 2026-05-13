@@ -1,0 +1,22 @@
+{
+  "accuracy": 0.49546578730420443,
+  "f1": 0.4574468085106383,
+  "sensitivity": 0.9809885931558935,
+  "specificity": 0.36105263157894735,
+  "auc": 0.8881648989393636,
+  "optimal_threshold": 0.7057850278370111,
+  "f1_calibrated": 0.6497005988023952,
+  "sensitivity_calibrated": 0.8250950570342205,
+  "specificity_calibrated": 0.8021052631578948,
+  "threshold_val_optimal": 0.6513548646660543,
+  "accuracy_val_thr": 0.7444352844187964,
+  "f1_val_thr": 0.5953002610966057,
+  "sensitivity_val_thr": 0.8669201520912547,
+  "specificity_val_thr": 0.7105263157894737,
+  "task_name": "06_if_v1_noTab",
+  "checkpoint": "/home/elisa/TFE_final/results/06_if_v1/best_model",
+  "split": "test",
+  "fold": 0,
+  "n_samples": 1213,
+  "has_mmse_head": false
+}

@@ -1,0 +1,34 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# T6_ideal_MMSE — Prompt optimal (à définir) + tête de régression MMSE
+# ═══════════════════════════════════════════════════════════════════════════
+# À remplir APRÈS sélection du prompt optimal via :
+#   1. Évaluation zero-shot multi-prompts sur checkpoint T1 (eval_prompts_zeroshot.sh)
+#   2. Confirmation par training complet T6_<winner>
+#
+# Remplacer :
+#   - task_name : 06_ideal_mmse → 06_<winner>_mmse (ex: 06_if_v2_mmse)
+#   - prompt.mode / prompt.variant : valeurs du prompt gagnant
+#   - logging.run_name : adapter
+#   - training.output_dir : adapter
+#
+# Objectif : mesurer l'apport du multitâche MMSE sur le MEILLEUR prompt
+# (vs T2 qui mesure sur le prompt full de base). Si T6_ideal+MMSE > T6_ideal,
+# l'hypothèse multitâche se confirme sur le pipeline optimal.
+# ═══════════════════════════════════════════════════════════════════════════
+task_name: 06_ideal_mmse   # ← À RENOMMER selon le prompt gagnant
+
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: true
+  loss_weight: 1.0         # α_reg identique à T2
+
+prompt:
+  mode: PLACEHOLDER        # ← REMPLACER par le mode du prompt gagnant
+  variant: PLACEHOLDER     # ← REMPLACER (supprimer si non image_focused)
+
+logging:
+  run_name: t6_ideal_mmse_fold0_seed42   # ← adapter
+
+training:
+  output_dir: results/06_ideal_mmse      # ← adapter

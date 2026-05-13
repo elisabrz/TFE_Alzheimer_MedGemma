@@ -1,0 +1,27 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# T6 — Variante image_focused v1 (liste de structures anatomiques à examiner)
+# ═══════════════════════════════════════════════════════════════════════════
+# Référence : T1 (full prompt) est la baseline.
+#
+# Prompt utilisé : PROMPT_IMAGE_FOCUSED_V1
+# Approche : descriptive directe — liste explicite des 3 marqueurs anatomiques AD :
+#   1. HIPPOCAMPAL ATROPHY (coronal) — symétrie, volume
+#   2. VENTRICULAR ENLARGEMENT (axial) — ex-vacuo dilation
+#   3. CORTICAL ATROPHY (all slices) — sulci, épaisseur corticale
+# Features tabulaires : incluses comme {clinical_section} optionnel.
+#
+# Hypothèse : en contraignant le modèle à examiner des structures précises,
+# on réduit le risque qu'il court-circuite l'IRM via les features tabulaires.
+# ═══════════════════════════════════════════════════════════════════════════
+
+inherits_from: ../config/config_base.yaml
+logging:
+  run_name: t6_if_v1_fold0_seed42
+mmse_head:
+  enabled: false
+prompt:
+  mode: image_focused
+  variant: v1
+task_name: 06_if_v1
+training:
+  output_dir: results/06_if_v1

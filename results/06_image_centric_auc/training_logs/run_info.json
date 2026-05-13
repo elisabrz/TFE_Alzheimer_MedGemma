@@ -1,0 +1,125 @@
+{
+  "run_name": "06_image_centric",
+  "started_at": "2026-05-04T09:43:36",
+  "config": {
+    "model": {
+      "name": "google/medgemma-1.5-4b-it",
+      "hidden_size": 2560,
+      "trust_remote_code": true
+    },
+    "quantization": {
+      "load_in_4bit": true,
+      "bnb_4bit_quant_type": "nf4",
+      "bnb_4bit_use_double_quant": true,
+      "bnb_4bit_compute_dtype": "bfloat16"
+    },
+    "lora": {
+      "r": 16,
+      "lora_alpha": 32,
+      "lora_dropout": 0.05,
+      "bias": "none",
+      "target_modules": "all-linear",
+      "task_type": "CAUSAL_LM"
+    },
+    "verbalizer": {
+      "token_cn": "CN",
+      "token_ad": "AD"
+    },
+    "mmse_head": {
+      "enabled": false,
+      "hidden_size": 2560
+    },
+    "loss": {
+      "focal_alpha": 0.78,
+      "focal_gamma": 2.0,
+      "alpha_reg": 1.0
+    },
+    "data": {
+      "splits_dir": "./data/splits",
+      "fold": 0,
+      "seed": 42,
+      "use_tabular": true,
+      "tabular_features": [
+        "AGE",
+        "PTGENDER",
+        "PTEDUCAT",
+        "PTMARRY",
+        "CATANIMSC",
+        "TRAASCOR",
+        "TRABSCOR",
+        "DSPANFOR",
+        "DSPANBAC",
+        "BNTTOTAL",
+        "MH14ALCH",
+        "MH16SMOK",
+        "MH4CARD",
+        "MH2NEURL",
+        "VSWEIGHT",
+        "BMI"
+      ],
+      "classes": {
+        "CN": 0,
+        "AD": 1
+      },
+      "slice_extraction": {
+        "n_coronal": 2,
+        "n_axial": 2,
+        "coronal_region": [
+          0.45,
+          0.55
+        ],
+        "axial_region": [
+          0.35,
+          0.45
+        ],
+        "output_size": 448
+      }
+    },
+    "training": {
+      "output_dir": "results/06_image_centric",
+      "num_train_epochs": 5,
+      "per_device_train_batch_size": 1,
+      "per_device_eval_batch_size": 1,
+      "gradient_accumulation_steps": 8,
+      "learning_rate": 2e-05,
+      "weight_decay": 0.01,
+      "warmup_steps": 100,
+      "lr_scheduler_type": "cosine",
+      "bf16": true,
+      "tf32": true,
+      "gradient_checkpointing": true,
+      "optim": "paged_adamw_8bit",
+      "logging_steps": 20,
+      "save_steps": 200,
+      "save_strategy": "steps",
+      "save_total_limit": 3,
+      "eval_strategy": "no",
+      "dataloader_num_workers": 2,
+      "report_to": "wandb",
+      "seed": 42
+    },
+    "early_stopping": {
+      "metric": "auc",
+      "mode": "max",
+      "patience": 2,
+      "min_delta": 0.005
+    },
+    "imputation": {
+      "method": "median_global_train_only",
+      "track_imputed": true,
+      "signal_in_prompt": false
+    },
+    "prompt": {
+      "mode": "image_centric"
+    },
+    "logging": {
+      "wandb_project": "tfe-alzheimer-medgemma-clean",
+      "run_name": "t6_image_centric_fold0_seed42"
+    },
+    "task_name": "06_image_centric"
+  },
+  "cn_token_id": 9353,
+  "ad_token_id": 2466,
+  "n_train": 4366,
+  "n_val": 486
+}

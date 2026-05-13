@@ -1,0 +1,13 @@
+data:
+  tabular_features: []
+  use_tabular: false
+inherits_from: ../config/config_base.yaml
+logging:
+  run_name: t6_image_centric_noTab_ablation_fold0
+mmse_head:
+  enabled: false
+prompt:
+  mode: image_centric
+task_name: 06_image_centric_noTab
+training:
+  output_dir: results/ablation/06_image_centric_noTab

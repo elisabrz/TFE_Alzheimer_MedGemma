@@ -1,0 +1,32 @@
+# Ablation text-only : toutes les features tabulaires omises.
+# Teste le modèle sur IRM seule (même checkpoint, prompt purgé).
+# use_visual=true, tabular_features=[]
+# Modèle source : T6_ic
+# Checkpoint    : results/06_image_centric/best_model
+# Usage :
+#   python evaluate.py \
+#       --checkpoint results/06_image_centric/best_model \
+#       --config <path>/T6_ic_config_noTab.yaml \
+#       --split test  --threshold-source val \
+#       --output results/ablation/06_image_centric_noTab
+#   (remplacer --split test par --split val pour la validation)
+
+task_name: 06_image_centric_noTab
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: false
+
+prompt:
+  mode: image_centric
+
+data:
+  use_tabular: false
+  tabular_features: []  # liste vide → 'No clinical data provided.'
+  use_visual: true
+
+logging:
+  run_name: 06_image_centric_noTab_fold0
+
+training:
+  output_dir: results/ablation/06_image_centric_noTab

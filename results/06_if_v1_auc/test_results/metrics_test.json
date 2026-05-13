@@ -1,0 +1,17 @@
+{
+  "accuracy": 0.830997526793075,
+  "f1": 0.6953937592867756,
+  "sensitivity": 0.8897338403041825,
+  "specificity": 0.8147368421052632,
+  "auc": 0.9351991194716829,
+  "optimal_threshold": 0.5621765008857981,
+  "f1_calibrated": 0.7206349206349206,
+  "sensitivity_calibrated": 0.8631178707224335,
+  "specificity_calibrated": 0.8526315789473684,
+  "task_name": "06_if_v1",
+  "checkpoint": "/home/elisa/TFE_final/results/06_if_v1/best_model",
+  "split": "test",
+  "fold": 0,
+  "n_samples": 1213,
+  "has_mmse_head": false
+}

@@ -1,0 +1,17 @@
+{
+  "accuracy": 0.3009068425391591,
+  "f1": 0.3819241982507289,
+  "sensitivity": 0.9961977186311787,
+  "specificity": 0.10842105263157895,
+  "auc": 0.9362597558535121,
+  "optimal_threshold": 0.7981867777396212,
+  "f1_calibrated": 0.6991150442477876,
+  "sensitivity_calibrated": 0.9011406844106464,
+  "specificity_calibrated": 0.8126315789473684,
+  "task_name": "06_image_centric",
+  "checkpoint": "/home/elisa/TFE_final/results/06_image_centric/best_model",
+  "split": "test",
+  "fold": 0,
+  "n_samples": 1213,
+  "has_mmse_head": false
+}

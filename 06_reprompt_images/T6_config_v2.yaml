@@ -1,0 +1,32 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# T6 — Variante image_focused v2 (chain-of-thought clinique)
+# ═══════════════════════════════════════════════════════════════════════════
+# Référence : T1 (full prompt) est la baseline.
+#
+# Prompt utilisé : PROMPT_IMAGE_FOCUSED_V2
+# Approche : raisonnement guidé par étapes successives (chain-of-thought).
+#   Step 1 — Hippocampus coronal (préservé ou atrophié ?)
+#   Step 2 — Ventricules axiaux (normal ou dilaté ? temporal horn ?)
+#   Step 3 — Atrophie corticale (sulci, épaisseur ?)
+#   Step 4 — Intégration des observations
+#   Step 5 — Classification finale
+#
+# Hypothèse : le CoT force le modèle à structurer son raisonnement
+# séquentiellement avant de décider → réduction des réponses "shortcuts".
+# Référence littérature : Wei et al. 2022 (Chain-of-Thought Prompting).
+# ═══════════════════════════════════════════════════════════════════════════
+task_name: 06_if_v2
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: false
+
+prompt:
+  mode: image_focused
+  variant: v2             # Chain-of-thought clinique
+
+logging:
+  run_name: t6_if_v2_fold0_seed42
+
+training:
+  output_dir: results/06_if_v2

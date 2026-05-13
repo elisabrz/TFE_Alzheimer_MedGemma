@@ -1,0 +1,31 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# T6 — Variante image_focused v3 (rôle de radiologue expert)
+# ═══════════════════════════════════════════════════════════════════════════
+# Référence : T1 (full prompt) est la baseline.
+#
+# Prompt utilisé : PROMPT_IMAGE_FOCUSED_V3
+# Approche : role-prompting. Le modèle est positionné comme
+# "expert neuroradiologist with 20 years of experience in dementia imaging".
+#   Focus : médial temporal atrophy, hippocampus + entorhinal cortex,
+#            temporal horn morphology, global & focal cortical atrophy,
+#            asymmetries.
+#
+# Hypothèse : MedGemma a été pré-entraîné sur de la littérature médicale.
+# Le rôle de radiologue active ce corpus et le distingue du corpus généraliste.
+# Référence littérature : Brown et al. 2020 (role-prompting GPT-3).
+# ═══════════════════════════════════════════════════════════════════════════
+task_name: 06_if_v3
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: false
+
+prompt:
+  mode: image_focused
+  variant: v3             # Rôle de radiologue expert
+
+logging:
+  run_name: t6_if_v3_fold0_seed42
+
+training:
+  output_dir: results/06_if_v3

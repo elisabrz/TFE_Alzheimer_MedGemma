@@ -1,0 +1,1 @@
+timestamp,epoch,step,auc,f1,accuracy,sensitivity,specificity,val_loss,mmse_mae,mmse_rmse,mmse_cc,mmse_n_real,best_auc_so_far,es_wait

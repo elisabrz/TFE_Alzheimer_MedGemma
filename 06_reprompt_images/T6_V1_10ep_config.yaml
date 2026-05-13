@@ -1,0 +1,46 @@
+# T6 V1 — Image Focused (variant v1) — 10 epochs
+# ═══════════════════════════════════════════════════════════════════
+# Objectif : explorer l'effet d'un entraînement prolongé sur le modèle
+# le plus généraliste (dépendance équilibrée IRM / texte, meilleur AUC
+# image-only parmi tous les prompts testés).
+#
+# Changements vs run 5-epoch original :
+#   - num_train_epochs : 5 → 10
+#   - early_stopping patience : 2 → 3 (plus de latitude avant arrêt)
+#   - early_stopping min_delta : 0.005 → 0.003 (détecte des progrès fins)
+#   - save_strategy : "no"   (workaround crash bitsandbytes après save_steps)
+#   - output_dir distinct     (ne pas écraser le best_model 5-epoch)
+#
+# Hypothèse : avec 10 epochs et un scheduler cosine qui décroît
+# plus lentement, le modèle devrait mieux généraliser à NACC/OASIS
+# et consolider l'utilisation de l'IRM (prompt image_focused).
+#
+# Résultats attendus vs 5-epoch :
+#   AUC full test           : ≥0.949 (si gain) ou plateau (si convergé)
+#   AUC noTab (IRM seule)  : ≥0.888 (indicateur clé pour le promoteur)
+#   AUC noVis (texte seul) : ≥0.887
+# ═══════════════════════════════════════════════════════════════════
+
+task_name: 06_if_v1_10ep
+inherits_from: ../config/config_base.yaml
+
+prompt:
+  mode: image_focused
+  variant: v1
+
+mmse_head:
+  enabled: false
+
+training:
+  num_train_epochs: 10          # ← 5 → 10
+  output_dir: results/06_if_v1_10ep
+  save_strategy: "no"           # évite crash bitsandbytes NF4 après checkpoint save
+
+early_stopping:
+  metric: auc
+  mode: max
+  patience: 2                   # ← 2 → 3 (10 epochs justifie plus de patience)
+  min_delta: 0.003              # ← 0.005 → 0.003 (détecte progrès plus fins)
+
+logging:
+  run_name: t6_v1_10ep_fold0_seed42

@@ -1,0 +1,20 @@
+{
+  "task_name": "10_zero_shot_medgemma",
+  "split": "test",
+  "fold": 0,
+  "n_samples": 1213,
+  "prompt_mode": "full",
+  "signal_in_prompt": false,
+  "metrics": {
+    "n_used": 1213,
+    "accuracy": 0.7840065952184666,
+    "f1": 0.12666666666666668,
+    "sensitivity": 0.07224334600760456,
+    "specificity": 0.9810526315789474,
+    "auc": 0.5786411847108264,
+    "optimal_threshold": 0.320821300824607,
+    "f1_calibrated": 0.357487922705314,
+    "sensitivity_calibrated": 0.4220532319391635,
+    "specificity_calibrated": 0.74
+  }
+}

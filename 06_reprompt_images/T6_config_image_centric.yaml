@@ -1,0 +1,30 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# T6 — Variante image_centric (prompt recentré sur l'IRM, features en contexte secondaire)
+# ═══════════════════════════════════════════════════════════════════════════
+# Référence : T1 (full prompt) est la baseline.
+# Cette variante inverse la priorité : les IRM sont décrites en premier,
+# les features tabulaires deviennent un "contexte additionnel".
+#
+# Prompt utilisé : PROMPT_IMAGE_CENTRIC
+#   "Look carefully at the 4 brain MRI slices below...
+#    Focus on: hippocampal atrophy, ventricular enlargement, cortical thinning.
+#    Additional clinical context: {clinical_info}
+#    Based primarily on the MRI findings, classify..."
+#
+# Hypothèse : si le modèle est plus performant, alors le VLM exploite mieux
+# l'imagerie quand on lui dit explicitement de le faire (vs features d'abord).
+# ═══════════════════════════════════════════════════════════════════════════
+task_name: 06_image_centric
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: false
+
+prompt:
+  mode: image_centric     # PROMPT_IMAGE_CENTRIC — IRM en avant, features en contexte
+
+logging:
+  run_name: t6_image_centric_fold0_seed42
+
+training:
+  output_dir: results/06_image_centric

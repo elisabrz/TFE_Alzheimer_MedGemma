@@ -1,0 +1,771 @@
+{
+  "fold": 0,
+  "split": "train",
+  "n_subjects": 4366,
+  "n_cn": 3417,
+  "n_ad": 949,
+  "n_features": 17,
+  "n_bootstrap": 500,
+  "thresholds": {
+    "decay_fortuit": 0.12,
+    "decay_ambigu": 0.04,
+    "min_group_size": 20,
+    "n_bootstrap": 500
+  },
+  "results": [
+    {
+      "feature": "AGE",
+      "label": "Age (years)",
+      "type": "continuous",
+      "n_real_cn": 3415,
+      "n_real_ad": 948,
+      "n_imputed_excluded": 3,
+      "real_pct": 99.93128721942281,
+      "effect_global": 0.3355866708675427,
+      "lb_global": 0.2949120750474143,
+      "ub_global": 0.37573183275571287,
+      "p_global": 1.766815134760058e-56,
+      "weighted_intra": 0.24377162410467246,
+      "decay": 0.09181504676287022,
+      "decay_class": "ambigu",
+      "p_inter_cohorte": 1.377056251002157e-48,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 303,
+          "n_ad": 338,
+          "effect": 0.23952779893373954,
+          "lb": 0.16348228757787026,
+          "ub": 0.31427490382174317,
+          "p": 1.6078611046678837e-07,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 2579,
+          "n_ad": 415,
+          "effect": 0.18677455070378446,
+          "lb": 0.11792660366164151,
+          "ub": 0.2498981579672704,
+          "p": 9.338888087879557e-10,
+          "skipped": false
+        },
+        "OASIS": {
+          "n_cn": 533,
+          "n_ad": 195,
+          "effect": 0.48191658247943425,
+          "lb": 0.4095376918266224,
+          "ub": 0.5650651849713763,
+          "p": 2.1369243692726688e-23,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "PTGENDER",
+      "label": "Gender (1=M, 2=F)",
+      "type": "binary",
+      "n_real_cn": 3417,
+      "n_real_ad": 949,
+      "n_imputed_excluded": 0,
+      "real_pct": 100.0,
+      "effect_global": 0.12134270068305682,
+      "lb_global": null,
+      "ub_global": null,
+      "p_global": 1.076509968527779e-15,
+      "weighted_intra": 0.13202192066054047,
+      "decay": -0.010679219977483653,
+      "decay_class": "intrinsèque",
+      "p_inter_cohorte": NaN,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 303,
+          "n_ad": 338,
+          "effect": 0.20032298056608885,
+          "lb": null,
+          "ub": null,
+          "p": 3.9412681688372534e-07,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 2581,
+          "n_ad": 416,
+          "effect": 0.13014910679461217,
+          "lb": null,
+          "ub": null,
+          "p": 1.040844728129053e-12,
+          "skipped": false
+        },
+        "OASIS": {
+          "n_cn": 533,
+          "n_ad": 195,
+          "effect": 0.07959313461209358,
+          "lb": null,
+          "ub": null,
+          "p": 0.031750301826888726,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "PTEDUCAT",
+      "label": "Education (years)",
+      "type": "continuous",
+      "n_real_cn": 3401,
+      "n_real_ad": 945,
+      "n_imputed_excluded": 20,
+      "real_pct": 99.54191479615208,
+      "effect_global": -0.1579314518450068,
+      "lb_global": -0.19836531894603052,
+      "ub_global": -0.1165832644927029,
+      "p_global": 3.316174975387066e-14,
+      "weighted_intra": 0.13775293586208137,
+      "decay": 0.020178515982925416,
+      "decay_class": "intrinsèque",
+      "p_inter_cohorte": 2.113426820157798e-10,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 303,
+          "n_ad": 338,
+          "effect": -0.17624543519440694,
+          "lb": -0.2657471146522937,
+          "ub": -0.09347867479055595,
+          "p": 9.126432360151978e-05,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 2577,
+          "n_ad": 416,
+          "effect": -0.13157443061401142,
+          "lb": -0.1948163627578281,
+          "ub": -0.06519248026178326,
+          "p": 1.0403203013726374e-05,
+          "skipped": false
+        },
+        "OASIS": {
+          "n_cn": 521,
+          "n_ad": 191,
+          "effect": -0.1290711579624364,
+          "lb": -0.22901111434916738,
+          "ub": -0.034279124920863,
+          "p": 0.007253495470777256,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "PTMARRY",
+      "label": "Marital status",
+      "type": "categorical",
+      "n_real_cn": 3392,
+      "n_real_ad": 943,
+      "n_imputed_excluded": 31,
+      "real_pct": 99.28996793403573,
+      "effect_global": -0.15493007062966435,
+      "lb_global": -0.18362228542237746,
+      "ub_global": -0.12520738397627001,
+      "p_global": 8.167255134885369e-19,
+      "weighted_intra": 0.14659843937847714,
+      "decay": 0.008331631251187216,
+      "decay_class": "intrinsèque",
+      "p_inter_cohorte": 9.887633510007229e-08,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 303,
+          "n_ad": 338,
+          "effect": -0.13854551135586934,
+          "lb": -0.19896718222118062,
+          "ub": -0.08031690003319851,
+          "p": 3.751027972761696e-05,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 2558,
+          "n_ad": 411,
+          "effect": -0.17569135710875083,
+          "lb": -0.21658890860979055,
+          "ub": -0.14073597168560442,
+          "p": 7.047603078941549e-12,
+          "skipped": false
+        },
+        "OASIS": {
+          "n_cn": 531,
+          "n_ad": 194,
+          "effect": -0.03457782437338608,
+          "lb": -0.1103422835731066,
+          "ub": 0.04490069310967447,
+          "p": 0.3892964416583018,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "CATANIMSC",
+      "label": "Animal Fluency (raw)",
+      "type": "continuous",
+      "n_real_cn": 3076,
+      "n_real_ad": 813,
+      "n_imputed_excluded": 477,
+      "real_pct": 89.07466788822721,
+      "effect_global": -0.7103980825243883,
+      "lb_global": -0.7451175089611755,
+      "ub_global": -0.6805948964886268,
+      "p_global": 3.87549183911555e-214,
+      "weighted_intra": 0.7067735850311783,
+      "decay": 0.0036244974932100327,
+      "decay_class": "intrinsèque",
+      "p_inter_cohorte": 1.8703740033167065e-31,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 303,
+          "n_ad": 337,
+          "effect": -0.6558255232051395,
+          "lb": -0.7143620667704753,
+          "ub": -0.602113876076035,
+          "p": 1.021382690760216e-46,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 2581,
+          "n_ad": 416,
+          "effect": -0.7187192650433643,
+          "lb": -0.7625139471507764,
+          "ub": -0.663831242735374,
+          "p": 5.339885931843508e-123,
+          "skipped": false
+        },
+        "OASIS": {
+          "n_cn": 192,
+          "n_ad": 60,
+          "effect": -0.6940972222222221,
+          "lb": -0.7874153645833334,
+          "ub": -0.5766536458333333,
+          "p": 4.602258286230693e-16,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "TRAASCOR",
+      "label": "Trail Making A (sec)",
+      "type": "continuous",
+      "n_real_cn": 3018,
+      "n_real_ad": 788,
+      "n_imputed_excluded": 560,
+      "real_pct": 87.17361429225836,
+      "effect_global": 0.6455480316073104,
+      "lb_global": 0.6059605669704279,
+      "ub_global": 0.6777006531033763,
+      "p_global": 5.443801235187761e-172,
+      "weighted_intra": 0.6749671194754046,
+      "decay": -0.029419087868094107,
+      "decay_class": "intrinsèque",
+      "p_inter_cohorte": 8.959480671784298e-20,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 303,
+          "n_ad": 334,
+          "effect": 0.5781012232959823,
+          "lb": 0.503224738641529,
+          "ub": 0.6521306397106776,
+          "p": 1.745185526761882e-36,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 2524,
+          "n_ad": 394,
+          "effect": 0.6996116469708061,
+          "lb": 0.6617497154223013,
+          "ub": 0.7394638877939295,
+          "p": 6.783994741263817e-111,
+          "skipped": false
+        },
+        "OASIS": {
+          "n_cn": 191,
+          "n_ad": 60,
+          "effect": 0.6342931937172775,
+          "lb": 0.5193411867364747,
+          "ub": 0.7510013089005235,
+          "p": 1.2536076233032036e-13,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "TRABSCOR",
+      "label": "Trail Making B (sec)",
+      "type": "continuous",
+      "n_real_cn": 2989,
+      "n_real_ad": 774,
+      "n_imputed_excluded": 603,
+      "real_pct": 86.18873110398533,
+      "effect_global": 0.7275881505226311,
+      "lb_global": 0.6940077441575182,
+      "ub_global": 0.761224241253243,
+      "p_global": 2.4789160366035925e-214,
+      "weighted_intra": 0.7771154318961803,
+      "decay": -0.049527281373549115,
+      "decay_class": "ambigu",
+      "p_inter_cohorte": 4.979345819126541e-14,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 301,
+          "n_ad": 324,
+          "effect": 0.6313215208564046,
+          "lb": 0.5605225380419179,
+          "ub": 0.7030659119806406,
+          "p": 1.893348533452938e-42,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 2498,
+          "n_ad": 395,
+          "effect": 0.8129227432578975,
+          "lb": 0.7772712093725613,
+          "ub": 0.8437013408194911,
+          "p": 4.690655042315091e-149,
+          "skipped": false
+        },
+        "OASIS": {
+          "n_cn": 190,
+          "n_ad": 55,
+          "effect": 0.7262200956937799,
+          "lb": 0.5980837320574163,
+          "ub": 0.8172535885167465,
+          "p": 2.2157096286136012e-16,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "DSPANFOR",
+      "label": "Digit Span Forward",
+      "type": "continuous",
+      "n_real_cn": 676,
+      "n_real_ad": 328,
+      "n_imputed_excluded": 3362,
+      "real_pct": 22.99587723316537,
+      "effect_global": -0.3020547698080531,
+      "lb_global": -0.3659412658753067,
+      "ub_global": -0.232422269627652,
+      "p_global": 4.2144878686514975e-15,
+      "weighted_intra": 0.26599524036210664,
+      "decay": 0.03605952944594648,
+      "decay_class": "intrinsèque",
+      "p_inter_cohorte": 3.3363855661678893e-35,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 104,
+          "n_ad": 261,
+          "effect": -0.23684792219274975,
+          "lb": -0.3439922266430886,
+          "ub": -0.09407327586206904,
+          "p": 0.00035749659521185925,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 490,
+          "n_ad": 10,
+          "skipped": true,
+          "skip_reason": "insufficient real values (need ≥20)"
+        },
+        "OASIS": {
+          "n_cn": 82,
+          "n_ad": 57,
+          "effect": -0.3425331621737271,
+          "lb": -0.5167789901583227,
+          "ub": -0.16600342319212663,
+          "p": 0.00038379054857172245,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "DSPANBAC",
+      "label": "Digit Span Backward",
+      "type": "continuous",
+      "n_real_cn": 676,
+      "n_real_ad": 323,
+      "n_imputed_excluded": 3367,
+      "real_pct": 22.88135593220339,
+      "effect_global": -0.4571143312510304,
+      "lb_global": -0.5200155256746112,
+      "ub_global": -0.39002406708556986,
+      "p_global": 3.7839990311082166e-32,
+      "weighted_intra": 0.48108801804546236,
+      "decay": -0.02397368679443196,
+      "decay_class": "intrinsèque",
+      "p_inter_cohorte": 2.082668457468295e-38,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 104,
+          "n_ad": 257,
+          "effect": -0.4356480095779707,
+          "lb": -0.5556915968272972,
+          "ub": -0.32113139778509425,
+          "p": 5.48275462106137e-11,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 490,
+          "n_ad": 10,
+          "skipped": true,
+          "skip_reason": "insufficient real values (need ≥20)"
+        },
+        "OASIS": {
+          "n_cn": 82,
+          "n_ad": 56,
+          "effect": -0.5999564459930313,
+          "lb": -0.728467987804878,
+          "ub": -0.4674379355400697,
+          "p": 8.368329851903843e-10,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "BNTTOTAL",
+      "label": "Boston Naming",
+      "type": "continuous",
+      "n_real_cn": 675,
+      "n_real_ad": 339,
+      "n_imputed_excluded": 3352,
+      "real_pct": 23.224919835089327,
+      "effect_global": -0.36575549000327756,
+      "lb_global": -0.44030492734622523,
+      "ub_global": -0.284062165410248,
+      "p_global": 6.972604354106768e-22,
+      "weighted_intra": 0.434349059397583,
+      "decay": -0.06859356939430544,
+      "decay_class": "ambigu",
+      "p_inter_cohorte": 7.551874914675371e-89,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 104,
+          "n_ad": 272,
+          "effect": -0.4402927036199096,
+          "lb": -0.5286967972285068,
+          "ub": -0.32933045814479633,
+          "p": 3.034625477874508e-11,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 489,
+          "n_ad": 10,
+          "skipped": true,
+          "skip_reason": "insufficient real values (need ≥20)"
+        },
+        "OASIS": {
+          "n_cn": 82,
+          "n_ad": 57,
+          "effect": -0.41827128797603774,
+          "lb": -0.5813061617458279,
+          "ub": -0.2646181001283698,
+          "p": 2.3882155459330057e-05,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "BMI",
+      "label": "BMI",
+      "type": "continuous",
+      "n_real_cn": 3007,
+      "n_real_ad": 607,
+      "n_imputed_excluded": 752,
+      "real_pct": 82.77599633531837,
+      "effect_global": -0.09029233819604876,
+      "lb_global": -0.14237620456167896,
+      "ub_global": -0.03513168614254815,
+      "p_global": 0.00044116525841204386,
+      "weighted_intra": 0.09923317983456378,
+      "decay": -0.008940841638515024,
+      "decay_class": "intrinsèque",
+      "p_inter_cohorte": 0.004345797284352272,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 95,
+          "n_ad": 69,
+          "effect": -0.06437833714721597,
+          "lb": -0.22670861937452316,
+          "ub": 0.09479786422578182,
+          "p": 0.4832056215145696,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 2380,
+          "n_ad": 344,
+          "effect": -0.07005325385968342,
+          "lb": -0.14470899697088127,
+          "ub": -0.004015933408247099,
+          "p": 0.03545021751268696,
+          "skipped": false
+        },
+        "OASIS": {
+          "n_cn": 532,
+          "n_ad": 194,
+          "effect": -0.2165917370746453,
+          "lb": -0.3052493508255174,
+          "ub": -0.12565959034183394,
+          "p": 7.834998591378536e-06,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "VSWEIGHT",
+      "label": "Weight (kg)",
+      "type": "continuous",
+      "n_real_cn": 2586,
+      "n_real_ad": 747,
+      "n_imputed_excluded": 1033,
+      "real_pct": 76.33989922125515,
+      "effect_global": -0.10960418109664749,
+      "lb_global": -0.15652680326875945,
+      "ub_global": -0.059787357732036785,
+      "p_global": 4.880707485705892e-06,
+      "weighted_intra": 0.05886513227865561,
+      "decay": 0.05073904881799188,
+      "decay_class": "ambigu",
+      "p_inter_cohorte": 1.10064047794428e-28,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 262,
+          "n_ad": 309,
+          "effect": 0.05530027915709379,
+          "lb": -0.03135020627979934,
+          "ub": 0.14552484004051486,
+          "p": 0.25458600207905546,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 1933,
+          "n_ad": 271,
+          "effect": -0.044038003753032795,
+          "lb": -0.10747919701131821,
+          "ub": 0.03250296367423067,
+          "p": 0.2397113610882825,
+          "skipped": false
+        },
+        "OASIS": {
+          "n_cn": 391,
+          "n_ad": 167,
+          "effect": -0.121077538018592,
+          "lb": -0.23154853974914624,
+          "ub": -0.01969730615495346,
+          "p": 0.023422311698349317,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "MH14ALCH",
+      "label": "Alcohol use",
+      "type": "binary",
+      "n_real_cn": 3206,
+      "n_real_ad": 880,
+      "n_imputed_excluded": 280,
+      "real_pct": 93.58680714612917,
+      "effect_global": 0.0024377004317968644,
+      "lb_global": null,
+      "ub_global": null,
+      "p_global": 0.8761731193467632,
+      "weighted_intra": 0.011383828631240236,
+      "decay": -0.008946128199443371,
+      "decay_class": "intrinsèque",
+      "p_inter_cohorte": NaN,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 105,
+          "n_ad": 274,
+          "effect": 0.0543472825544583,
+          "lb": null,
+          "ub": null,
+          "p": 0.2900423691801498,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 2572,
+          "n_ad": 412,
+          "effect": 0.00532576155165231,
+          "lb": null,
+          "ub": null,
+          "p": 0.771108637390307,
+          "skipped": false
+        },
+        "OASIS": {
+          "n_cn": 529,
+          "n_ad": 194,
+          "effect": 0.013865326734408585,
+          "lb": null,
+          "ub": null,
+          "p": 0.709282381541408,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "MH16SMOK",
+      "label": "Smoking",
+      "type": "binary",
+      "n_real_cn": 3197,
+      "n_real_ad": 877,
+      "n_imputed_excluded": 292,
+      "real_pct": 93.31195602382043,
+      "effect_global": 0.1547173057183043,
+      "lb_global": null,
+      "ub_global": null,
+      "p_global": 5.328408484478792e-23,
+      "weighted_intra": 0.014837978166633663,
+      "decay": 0.13987932755167065,
+      "decay_class": "FORTUIT (Simpson)",
+      "p_inter_cohorte": NaN,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 105,
+          "n_ad": 274,
+          "effect": 0.010235785128714658,
+          "lb": null,
+          "ub": null,
+          "p": 0.8420519597176731,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 2572,
+          "n_ad": 413,
+          "effect": 0.008743619728638638,
+          "lb": null,
+          "ub": null,
+          "p": 0.6328573332962455,
+          "skipped": false
+        },
+        "OASIS": {
+          "n_cn": 520,
+          "n_ad": 190,
+          "effect": 0.042916698024079374,
+          "lb": null,
+          "ub": null,
+          "p": 0.25280996187205673,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "MH4CARD",
+      "label": "Cardiovascular hist.",
+      "type": "binary",
+      "n_real_cn": 3211,
+      "n_real_ad": 879,
+      "n_imputed_excluded": 276,
+      "real_pct": 93.67842418689877,
+      "effect_global": 0.2939404304415398,
+      "lb_global": null,
+      "ub_global": null,
+      "p_global": 7.782298287685951e-79,
+      "weighted_intra": 0.015863545051014873,
+      "decay": 0.2780768853905249,
+      "decay_class": "FORTUIT (Simpson)",
+      "p_inter_cohorte": NaN,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 105,
+          "n_ad": 274,
+          "effect": 0.013315228068649992,
+          "lb": null,
+          "ub": null,
+          "p": 0.7954656349273317,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 2574,
+          "n_ad": 412,
+          "effect": 0.0054558151654065,
+          "lb": null,
+          "ub": null,
+          "p": 0.7656045372756586,
+          "skipped": false
+        },
+        "OASIS": {
+          "n_cn": 532,
+          "n_ad": 193,
+          "effect": 0.06006119136100505,
+          "lb": null,
+          "ub": null,
+          "p": 0.10583574861738891,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "MH2NEURL",
+      "label": "Neurological hist.",
+      "type": "binary",
+      "n_real_cn": 1143,
+      "n_real_ad": 478,
+      "n_imputed_excluded": 2745,
+      "real_pct": 37.12780577187357,
+      "effect_global": 0.2639760281196999,
+      "lb_global": null,
+      "ub_global": null,
+      "p_global": 2.2053889206790409e-26,
+      "weighted_intra": 0.05267772988871479,
+      "decay": 0.21129829823098512,
+      "decay_class": "FORTUIT (Simpson)",
+      "p_inter_cohorte": NaN,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 105,
+          "n_ad": 274,
+          "effect": 0.06325665828005735,
+          "lb": null,
+          "ub": null,
+          "p": 0.21814499573146487,
+          "skipped": false
+        },
+        "NACC": {
+          "n_cn": 506,
+          "n_ad": 9,
+          "skipped": true,
+          "skip_reason": "insufficient real values (need ≥20)"
+        },
+        "OASIS": {
+          "n_cn": 532,
+          "n_ad": 195,
+          "effect": 0.047162717701206086,
+          "lb": null,
+          "ub": null,
+          "p": 0.2034991343753014,
+          "skipped": false
+        }
+      }
+    },
+    {
+      "feature": "mmse_score",
+      "label": "MMSE score",
+      "type": "continuous",
+      "n_real_cn": 303,
+      "n_real_ad": 338,
+      "n_imputed_excluded": 3725,
+      "real_pct": 14.6816307833257,
+      "effect_global": -0.9473021266623705,
+      "lb_global": -0.9647269904505243,
+      "ub_global": -0.9268295838459585,
+      "p_global": 3.0107966375233564e-96,
+      "weighted_intra": 0.9473021266623705,
+      "decay": 0.0,
+      "decay_class": "intrinsèque",
+      "p_inter_cohorte": NaN,
+      "cohorts": {
+        "ADNI": {
+          "n_cn": 303,
+          "n_ad": 338,
+          "effect": -0.9473021266623705,
+          "lb": -0.9656948757005879,
+          "ub": -0.9316260472201067,
+          "p": 3.0107966375233564e-96,
+          "skipped": false
+        }
+      }
+    }
+  ],
+  "n_sig_raw": 46,
+  "n_sig_corr": 42
+}
