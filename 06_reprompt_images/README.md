@@ -22,7 +22,7 @@ Par contrainte de temps GPU (chaque variante = ~24h d'entraînement) :
 
 - **T6 image_centric** : entraîné, ~24h
 - **T6 V1** (image_focused variant=v1) : entraîné, ~24h
-- T6 V2, V3 : abandonnés faute de temps
+- T6 V2, V3 : entrainé, ~24h
 
 ## Configuration
 
