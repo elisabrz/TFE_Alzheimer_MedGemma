@@ -1,0 +1,36 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# T10 — Zero-shot MedGemma (sans fine-tuning) sur le test set
+# ═══════════════════════════════════════════════════════════════════════════
+# Référence absolue : "Que peut faire MedGemma sans fine-tuning ?"
+# Le gap entre AUC zero-shot et AUC T1 mesure le gain réel du fine-tuning QLoRA.
+#
+# Cohérence avec T1/T2/T6 :
+#   - prompt.mode: full        (même prompt PROMPT_FULL que les autres tâches)
+#   - imputation.signal_in_prompt: false (hérité de config_base, valeurs imputées
+#                                         exclues du prompt — conseil doctorant)
+# ═══════════════════════════════════════════════════════════════════════════
+
+task_name: 10_zero_shot_medgemma
+inherits_from: ../config/config_base.yaml
+
+inference_only: true
+zero_shot: true               # désactive LoRA/PEFT
+
+# ═══ Prompt — DÉCLARATION EXPLICITE pour éviter l'auto-détection ═══════════
+# Les autres tâches (T1, T2, T6) utilisent aussi prompt.mode = full pour la
+# baseline. Ne pas modifier sans aussi modifier les configs T1/T2.
+prompt:
+  mode: full
+
+# ═══ Quantization quand même pour tenir en 16GB ═══════════════════════════
+quantization:
+  load_in_4bit: true
+  bnb_4bit_quant_type: nf4
+  bnb_4bit_compute_dtype: bfloat16
+  bnb_4bit_use_double_quant: true
+
+logging:
+  run_name: t10_zero_shot
+
+training:
+  output_dir: results/10_zero_shot
