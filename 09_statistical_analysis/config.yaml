@@ -1,0 +1,40 @@
+task_name: 09_statistical_analysis
+
+# Analyse statistique des features cliniques (pas d'entraînement modèle)
+# Auto-détecte le type de feature (continuous/binary/categorical) et applique
+# le bon test (Mann-Whitney / Chi² / Kruskal-Wallis).
+
+data:
+  splits_dir: data/splits     # racine ; le script appelle fold_<fold>/{train,val,test}.csv
+
+training:
+  seed: 42
+  output_dir: results/09_statistical_analysis
+
+# Features à analyser. Si non spécifié, le script utilise les 16 standards
+# + mmse_score (depuis FEATURE_META dans analyze.py).
+# Tu peux override en ligne de commande : --features AGE BMI MMSE
+features_to_analyze:
+  - AGE
+  - PTGENDER
+  - PTEDUCAT
+  - PTMARRY
+  - CATANIMSC
+  - TRAASCOR
+  - TRABSCOR
+  - DSPANFOR
+  - DSPANBAC
+  - BNTTOTAL
+  - BMI
+  - VSWEIGHT
+  - MH14ALCH
+  - MH16SMOK
+  - MH4CARD
+  - MH2NEURL
+  - mmse_score                # cible diagnostique, utile pour vérifier la séparation
+
+# Paramètres bootstrap
+bootstrap:
+  n_iterations: 500           # 500 = bon compromis qualité/temps (~5 min total)
+                              # → augmenter à 1000+ pour publication
+  ci: 0.95

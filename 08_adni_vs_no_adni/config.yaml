@@ -1,0 +1,16 @@
+task_name: 08_adni_vs_no_adni
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: true
+
+subsets:
+  adni_only:
+    sources: [adni]
+    run_name: t8_adni_only
+  no_adni:
+    sources: [nacc, oasis]
+    run_name: t8_no_adni
+
+training:
+  output_dir: results/08_adni_vs_no_adni

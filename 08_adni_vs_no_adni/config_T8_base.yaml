@@ -1,0 +1,15 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# T8 BASE CONFIG — Tâche 8 : ADNI vs no-ADNI
+# ═══════════════════════════════════════════════════════════════════════════
+# Hérite de config_base et fixe le mode multitâche (T2-like).
+# Les enfants spécifient uniquement le filtre cohorte :
+#   - config_adni_only.yaml  : data.cohort_filter.include = [ADNI]
+#   - config_no_adni.yaml    : data.cohort_filter.exclude = [ADNI]
+# ═══════════════════════════════════════════════════════════════════════════
+
+inherits_from: ../config/config_base.yaml
+
+# Mode multitâche (T2-like) : Focal + α_reg × MSE(MMSE)
+mmse_head:
+  enabled: true
+  loss_weight: 1.0

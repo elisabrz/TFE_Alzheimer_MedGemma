@@ -1,0 +1,22 @@
+task_name: 04_ablation_demo
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: true
+
+data:
+  tabular_features:         # 8 features pures (demo + antécédents)
+    - AGE
+    - PTGENDER
+    - PTEDUCAT
+    - PTMARRY
+    - MH14ALCH
+    - MH16SMOK
+    - MH4CARD
+    - MH2NEURL
+
+logging:
+  run_name: t4_ablation_demo_fold0_seed42
+
+training:
+  output_dir: results/04_ablation_demo

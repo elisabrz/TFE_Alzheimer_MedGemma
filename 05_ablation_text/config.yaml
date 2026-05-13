@@ -1,0 +1,18 @@
+task_name: 05_ablation_text
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: false            # prompt minimal, pas de MMSE cible
+
+data:
+  tabular_features: []      # aucune feature tabulaire
+  use_tabular: false        # force le mode minimal même si liste non vide par erreur
+
+prompt:
+  mode: minimal             # à gérer dans TfeMinimalTextDataset
+
+logging:
+  run_name: t5_ablation_text_fold0_seed42
+
+training:
+  output_dir: results/05_ablation_text

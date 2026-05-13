@@ -1,0 +1,23 @@
+# T8 — Entraînement SANS ADNI (~5162 sujets : NACC + OASIS uniquement)
+# Test set non filtré : test set complet 1213 patients (toutes cohortes)
+# pour comparaison directe avec config_adni_only.yaml.
+#
+# Hypothèse principale : si AUC(no_adni vs adni_only) sur ADNI test est
+# significativement plus bas, le modèle entraîné sans ADNI ne généralise pas
+# bien à la cohorte ADNI (suggère des patterns spécifiques / contamination
+# du pré-entraînement MedGemma sur ADNI).
+
+inherits_from: ./_config_T8_base.yaml
+
+task_name: 08_no_adni
+
+data:
+  cohort_filter:
+    exclude:
+      - ADNI
+
+logging:
+  run_name: t8_no_adni_fold0_seed42
+
+training:
+  output_dir: results/08_no_adni

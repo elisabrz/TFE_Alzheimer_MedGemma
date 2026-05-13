@@ -1,0 +1,18 @@
+# T8 — Entraînement sur ADNI seul (~903 sujets)
+# Test set non filtré : test set complet 1213 patients (toutes cohortes)
+# pour comparaison directe avec config_no_adni.yaml.
+
+inherits_from: ./_config_T8_base.yaml
+
+task_name: 08_adni_only
+
+data:
+  cohort_filter:
+    include:
+      - ADNI
+
+logging:
+  run_name: t8_adni_only_fold0_seed42
+
+training:
+  output_dir: results/08_adni_only

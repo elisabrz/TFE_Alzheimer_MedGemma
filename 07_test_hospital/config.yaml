@@ -1,0 +1,13 @@
+task_name: 07_test_hospital
+inherits_from: ../config/config_base.yaml
+
+inference_only: true
+
+hospital_data:
+  csv_path: ${HOSPITAL_DATA}/test_hospital.csv   # à fournir
+
+logging:
+  run_name: t7_test_hospital
+
+training:
+  output_dir: results/07_test_hospital
