@@ -1,0 +1,31 @@
+# Ablation vision-only : images IRM remplacées par des zéros.
+# Teste le modèle sur données textuelles seules (16 features cliniques).
+# use_tabular=true, use_visual=false → pixel_values = torch.zeros
+# Modèle source : T1
+# Checkpoint    : results/01_no_mmse/best_model
+# Usage :
+#   python evaluate.py \
+#       --checkpoint results/01_no_mmse/best_model \
+#       --config <path>/T1_config_noVis.yaml \
+#       --split test  --threshold-source val \
+#       --output results/ablation/01_no_mmse_noVis
+#   (remplacer --split test par --split val pour la validation)
+
+task_name: 01_no_mmse_noVis
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: false
+
+prompt:
+  mode: full
+
+data:
+  use_tabular: true
+  use_visual: false   # pixel_values = zeros → MedSigLIP embedding neutre
+
+logging:
+  run_name: 01_no_mmse_noVis_fold0
+
+training:
+  output_dir: results/ablation/01_no_mmse_noVis

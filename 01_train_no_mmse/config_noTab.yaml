@@ -1,0 +1,34 @@
+# Config Tâche 1 — Ablation image-only (sans features tabulaires)
+# Évalue le checkpoint T1 avec prompt purgé des données cliniques.
+# Objectif : quantifier la contribution causale des 16 features tabulaires
+# par rapport à l'IRM seule. À comparer avec T1 standard (AUC test = 0.945).
+#
+# Usage :
+#   python evaluate.py \
+#       --task 01_no_mmse \
+#       --checkpoint results/01_no_mmse/best_model \
+#       --config 01_no_mmse/config_noTab.yaml \
+#       --split test \
+#       --output results/ablation/01_noTab \
+#       --threshold-source val
+
+task_name: 01_no_mmse_noTab
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: false
+
+data:
+  tabular_features: []
+  use_tabular: false     # ← seul changement vs T1 standard
+  # 16 features exclues du prompt ; IRM seule transmise au modèle.
+  # Le modèle reçoit uniquement les 4 coupes NIfTI + l'instruction de classification.
+
+prompt:
+  mode: full                # template full conservé, section clinical_info sera vide
+
+logging:
+  run_name: t1_noTab_ablation_fold0
+
+training:
+  output_dir: results/ablation/01_noTab

@@ -1,0 +1,14 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# Config Tâche 1 — Baseline classification seule
+# ═══════════════════════════════════════════════════════════════════════════
+task_name: 01_no_mmse
+inherits_from: ../config/config_base.yaml
+
+mmse_head:
+  enabled: false
+
+logging:
+  run_name: t1_no_mmse_fold0_seed42
+
+training:
+  output_dir: results/01_no_mmse
